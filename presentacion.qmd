@@ -1,0 +1,628 @@
+---
+title: "Zonas de Vida Ecológicas del Caribe Colombiano"
+subtitle: "Fundamentos bioclimáticos, inventario regional y perspectivas ante el cambio climático"
+author: "Cátedra de Ecología Regional y Biogeografía"
+institute: "Clase Magistral"
+lang: es
+format:
+  revealjs:
+    #theme: [default, serif]
+    slide-number: c/t
+    show-slide-number: all
+    transition: slide
+    background-transition: fade
+    incremental: false
+    scrollable: true
+    smaller: true
+    center: false
+    footer: "Zonas de Vida del Caribe Colombiano | Sistema Holdridge – MEC"
+    highlight-style: github
+    code-fold: true
+    width: 1366
+    height: 900
+execute:
+  echo: false
+  warning: false
+---
+
+```{r setup}
+#| include: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(maps)
+
+# Paleta institucional y ecológica para toda la presentación
+paleta_caribe <- c(
+  "md-T"  = "#D97706",
+  "me-T"  = "#EA580C",
+  "bms-T" = "#CA8A04",
+  "bs-T"  = "#65A30D",
+  "bh-T"  = "#15803D",
+  "Montano/Páramo" = "#0284C7",
+  "Nival" = "#64748B"
+)
+
+# Paleta institucional y bioclimática
+paleta_biomas <- c(
+  "md-T / me-T (Árido)" = "#D97706",
+  "bs-T (Seco Tropical)" = "#CA8A04",
+  "bh-T / bmh-T (Húmedo)" = "#15803D",
+  "Pisos Montanos (SNSM/Perijá)" = "#1D4ED8",
+  "Halobioma / Humedales" = "#0E7490"
+)
+
+theme_clase <- function() {
+  theme_minimal(base_size = 14) +
+    theme(
+      plot.title = element_text(face = "bold", size = 16, color = "#1B4332"),
+      plot.subtitle = element_text(size = 12, color = "#475569"),
+      plot.caption = element_text(size = 9, color = "#64748B", hjust = 0),
+      panel.grid.minor = element_blank(),
+      legend.position = "bottom",
+      legend.title = element_blank()
+    )
+}
+```
+
+## Objetivos de la Sesión {.center}
+
+::: {.callout-note appearance="simple"}
+### Propósito Pedagógico (90 – 120 minutos)
+Articular la **zonación bioclimática clásica** (Holdridge / Espinal & Montenegro / IGAC) con la **cartografía contemporánea de ecosistemas** (MEC) para comprender la heterogeneidad ecológica del Caribe colombiano, sus crisis de conservación y sus trayectorias frente al cambio climático.
+:::
+
+1. Explicar los **motores oceanográficos y atmosféricos** que comprimen desiertos y glaciares en una misma región.
+2. Contrastar las envolventes climáticas potenciales (**Holdridge**) frente a los biomas reales y azonales (**MEC**).
+3. Analizar la ecofisiología y estado crítico del **Bosque Seco Tropical (`bs-T`)**.
+4. Comparar los gradientes altitudinales y el endemismo de la **Sierra Nevada de Santa Marta** y la **Serranía del Perijá**.
+5. Evaluar estrategias de **restauración socioecológica** y escenarios climáticos hacia 2100.
+
+---
+
+## Hoja de Ruta de la Clase Magistral
+
+| Bloque | Tiempo | Eje Temático | Pregunta Problematizadora |
+|:---|:---:|:---|:---|
+| **1. Apertura** | 15 min | La paradoja bioclimática del Caribe | *¿Cómo coexisten un desierto costero, nieves perpetuas y selvas húmedas en una misma región?* |
+| **2. Marco Analítico** | 20 min | De Holdridge al MEC | *¿Por qué un mapa puramente climático no predice la Ciénaga Grande ni la Depresión Momposina?* |
+| **3. Tierras Bajas** | 20 min | Gradiente árido y `bs-T` | *¿Por qué el Caribe conserva los mayores parches de `bs-T` pese a restar solo el 8 % en Colombia?* |
+| **4. Alta Montaña** | 20 min | SNSM frente a Perijá | *¿Qué explica la inversión riqueza-endemismo y las 15 especies compartidas entre ambos macizos?* |
+| **5. Cierre** | 25 min | Restauración y clima 2100 | *¿Qué especies y diseños priorizar si el clima desplaza el `bs-T` hacia condiciones más áridas?* |
+
+---
+
+## 1. La Paradoja Bioclimática del Caribe {.center background-color="#1b4332"}
+
+:::: {.columns}
+
+::: {.column width="52%"}
+> *"En un mismo arco geográfico, el Caribe colombiano comprime prácticamente todo el espectro de zonas de vida tropicales del planeta."*
+
+* **Extremo hiperárido:** Península de La Guajira con precipitaciones de **150 – 200 mm/año** (`md-T`).
+* **Extremo nival:** Cumbres de la Sierra Nevada de Santa Marta a **5.775 m s.n.m.** (< 0 °C).
+* **Extremo húmedo basal:** Transición suroccidental hacia el **Golfo de Urabá** (`bh-T` / `bp-T`).
+:::
+
+::: {.column width="48%"}
+![Desierto costero hacia el Cabo de la Vela, La Guajira (`md-T`). Foto: Gatocalvo (CC BY-SA 4.0, Wikimedia Commons)](https://commons.wikimedia.org/wiki/Special:FilePath/Guajira,_Desierto,-Cabo-de-la-Vela.jpg){width="100%" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"}
+:::
+
+::::
+
+---
+
+## Motores Climáticos: Surgencia y Sombra Orográfica
+
+:::: {.columns}
+
+::: {.column width="46%"}
+### Dinámica Litoral Norte
+* **Vientos Alisios del NE:** Impulsan el ascenso de aguas profundas y frías hacia la superficie marina (**surgencia** entre Magdalena, Cesar y La Guajira).
+* **Efecto atmosférico:** Inhibe la convección local y genera el cinturón árido guajiro (150–200 mm/año).
+* **Sombra Orográfica (SNSM):** Vertiente norte árida frente a vertiente sur y suroccidental húmeda.
+:::
+
+::: {.column width="54%"}
+```{r fig-climograma}
+#| fig-width: 7
+#| fig-height: 4.8
+#| fig-cap: Régimen Pluviométrico Comparativo en el Caribe. Contraste entre hiperaridez guajira, estacionalidad bimodal del bs-T y régimen húmedo.
+
+# Datos climáticos mensuales representativos del gradiente Caribe (IDEAM)
+meses <- factor(c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"),
+                levels = c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"))
+
+clima_df <- tibble(
+  Mes = rep(meses, 3),
+  Localidad = rep(c(
+    "Alta Guajira - Uribia (md-T: ~180 mm/año)",
+    "Llanura Caribe - Barranquilla/Luruaco (bs-T: ~1.150 mm/año)",
+    "Urabá / Piedemonte Húmedo (bh-T: ~2.650 mm/año)"
+  ), each = 12),
+  Precipitacion_mm = c(
+    # Uribia (bimodal muy seco, pico en oct-nov)
+    4, 2, 3, 10, 22, 8, 5, 12, 30, 52, 24, 8,
+    # Bosque seco Caribe (bimodal: seco dic-abr, veranillo jul, lluvias may y sep-nov)
+    8, 5, 12, 55, 135, 110, 85, 125, 165, 210, 155, 45,
+    # Bosque húmedo Urabá / base húmeda
+    75, 65, 85, 185, 290, 275, 260, 285, 310, 340, 280, 160
+  )
+)
+
+ggplot(clima_df, aes(x = Mes, y = Precipitacion_mm, color = Localidad, group = Localidad)) +
+  geom_hline(yintercept = 100, linetype = "dashed", color = "#DC2626", linewidth = 0.7) +
+  annotate("text", x = "Mar", y = 113, label = "Umbral déficit hídrico (<100 mm/mes)", 
+           color = "#DC2626", size = 3.3, fontface = "italic") +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 2.6) +
+  scale_color_manual(values = c("#D97706", "#65A30D", "#15803D")) +
+  labs(
+    #title = "Régimen Pluviométrico Comparativo en el Caribe",
+    #subtitle = "Contraste entre hiperaridez guajira, estacionalidad bimodal del bs-T y régimen húmedo",
+    x = NULL,
+    y = "Precipitación media mensual (mm)",
+    caption = "Fuente: Síntesis paramétrica basada en normales climatológicas IDEAM."
+  ) +
+  theme_clase() +
+  theme(legend.direction = "vertical")
+```
+:::
+
+::::
+
+---
+
+## Mapa Geoclimático: Litoral Norte, Surgencias y Sombra Orográfica
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r fig-mapa-caribe}
+#| fig-width: 7.2
+#| fig-height: 5.0
+#| out-width: "100%"
+
+# Contorno geográfico base del Caribe colombiano (sin dependencias externas)
+mapa_base <- map_data("world", region = c("Colombia", "Venezuela", "Panama"))
+
+# Función auxiliar para generar curvas de nivel (elipses suavizadas del relieve)
+crear_curva_nivel <- function(lon0, lat0, rx, ry, angulo_deg, elevacion, sistema) {
+  theta <- seq(0, 2 * pi, length.out = 80)
+  rad <- angulo_deg * pi / 180
+  x_rot <- rx * cos(theta) * cos(rad) - ry * sin(theta) * sin(rad)
+  y_rot <- rx * cos(theta) * sin(rad) + ry * sin(theta) * cos(rad)
+  tibble(
+    lon = lon0 + x_rot,
+    lat = lat0 + y_rot,
+    elevacion = elevacion,
+    grupo = paste(sistema, elevacion)
+  )
+}
+
+# Polígonos hipsométricos / curvas de nivel de los principales sistemas montañosos
+relieve_df <- bind_rows(
+  # Sierra Nevada de Santa Marta (macizo piramidal hasta 5.775 m)
+  crear_curva_nivel(-73.72, 10.85, 0.58, 0.44, 20, "500 - 1.500 m", "SNSM"),
+  crear_curva_nivel(-73.70, 10.84, 0.40, 0.30, 20, "1.500 - 3.000 m", "SNSM"),
+  crear_curva_nivel(-73.68, 10.83, 0.23, 0.17, 20, "3.000 - 4.500 m", "SNSM"),
+  crear_curva_nivel(-73.67, 10.83, 0.09, 0.07, 20, "> 4.500 m (Nival)", "SNSM"),
+  # Serranía del Perijá (ramal oriental, eje SO-NE)
+  crear_curva_nivel(-72.95, 10.10, 0.28, 0.95, -28, "500 - 1.500 m", "Perija"),
+  crear_curva_nivel(-72.94, 10.12, 0.16, 0.65, -28, "1.500 - 3.000 m", "Perija"),
+  crear_curva_nivel(-72.92, 10.15, 0.06, 0.25, -28, "3.000 - 4.500 m", "Perija"),
+  # Montes de María / Serranía de San Jacinto (colinas bajas)
+  crear_curva_nivel(-75.18, 9.55, 0.16, 0.42, -18, "500 - 1.500 m", "MontesMaria"),
+  # Nudo de Paramillo / Norte Cordilleras Occidental y Central
+  crear_curva_nivel(-75.95, 7.85, 0.75, 0.45, 12, "500 - 1.500 m", "Paramillo"),
+  crear_curva_nivel(-75.98, 7.75, 0.45, 0.25, 12, "1.500 - 3.000 m", "Paramillo"),
+  # Serranía de Macuira (Alta Guajira)
+  crear_curva_nivel(-71.33, 12.18, 0.14, 0.08, -35, "500 - 1.500 m", "Macuira")
+) %>%
+  mutate(elevacion = factor(elevacion, levels = c(
+    "500 - 1.500 m", "1.500 - 3.000 m", "3.000 - 4.500 m", "> 4.500 m (Nival)"
+  )))
+
+paleta_relieve <- c(
+  "500 - 1.500 m" = "#D9F99D",
+  "1.500 - 3.000 m" = "#86EFAC",
+  "3.000 - 4.500 m" = "#A8A29E",
+  "> 4.500 m (Nival)" = "#FFFFFF"
+)
+
+# Puntos clave de zonas de vida y estaciones de referencia
+puntos_zv <- tibble(
+  nombre = c("Alta Guajira (md-T)", "PNN Tayrona (bs-T)", "SNSM (5.775 m)",
+             "Ciénaga Grande (Manglar)", "Serranía Perijá", "Montes de María (bs-T)",
+             "Urabá (bh-T)"),
+  lon = c(-71.85, -73.98, -73.67, -74.45, -72.92, -75.20, -76.68),
+  lat = c(12.05, 11.31, 10.83, 10.82, 10.15, 9.55, 8.08),
+  bioma = c("md-T / me-T (Árido)", "bs-T (Seco Tropical)", "Pisos Montanos (SNSM/Perijá)",
+            "Halobioma / Humedales", "Pisos Montanos (SNSM/Perijá)", "bs-T (Seco Tropical)",
+            "bh-T / bmh-T (Húmedo)")
+)
+
+# Focos de surgencia costera (Upwelling) impulsados por Alisios
+surgencias <- tibble(
+  lon = c(-72.3, -73.4, -74.2),
+  lat = c(12.2, 11.55, 11.25),
+  etiqueta = c("Surgencia Guajira\n(TSM < 22 °C)", "Surgencia Tayrona", "")
+)
+
+# Vectores de vientos Alisios del NE y barrera orográfica
+vientos <- tibble(
+  x = c(-71.2, -72.2, -73.1, -74.8),
+  y = c(12.8, 12.4, 11.9, 11.4),
+  xend = c(-72.1, -73.1, -73.8, -75.5),
+  yend = c(12.1, 11.7, 11.3, 10.6)
+)
+
+ggplot() +
+  # Llanura continental (< 500 m)
+  geom_polygon(data = mapa_base, aes(x = long, y = lat, group = group),
+               fill = "#FEF9C3", color = "#64748B", linewidth = 0.45) +
+  # Curvas de nivel y bandas hipsométricas de sistemas montañosos
+  geom_polygon(data = relieve_df, aes(x = lon, y = lat, group = grupo, fill = elevacion),
+               color = "#475569", linewidth = 0.25, alpha = 0.9) +
+  scale_fill_manual(values = paleta_relieve, name = "Relieve (m s. n. m.)") +
+  # Zonas de surgencia marina
+  geom_point(data = surgencias, aes(x = lon, y = lat),
+             color = "#0284C7", fill = "#38BDF8", shape = 21, size = 11, alpha = 0.35) +
+  geom_text(data = surgencias %>% filter(etiqueta != ""),
+            aes(x = lon - 0.15, y = lat + 0.35, label = etiqueta),
+            size = 2.8, color = "#0369A1", fontface = "bold") +
+  # Flechas Alisios del NE
+  geom_segment(data = vientos, aes(x = x, y = y, xend = xend, yend = yend),
+               arrow = arrow(length = unit(0.18, "cm"), type = "closed"),
+               color = "#0EA5E9", linewidth = 0.85) +
+  annotate("text", x = -71.3, y = 12.95, label = "Vientos Alisios (NE)",
+           color = "#0369A1", size = 3.0, fontface = "bold") +
+  # Sombra orográfica sotavento SNSM / Cesar
+  annotate("rect", xmin = -73.55, xmax = -73.05, ymin = 9.75, ymax = 10.45,
+           fill = "#F59E0B", alpha = 0.22) +
+  annotate("text", x = -72.45, y = 9.55, label = "Sombra orográfica\n(Valle del Cesar)",
+           size = 2.75, color = "#B45309", fontface = "italic") +
+  # Estaciones / Zonas de Vida
+  geom_point(data = puntos_zv, aes(x = lon, y = lat, color = bioma),
+             size = 3.6, stroke = 1.1) +
+  geom_text(data = puntos_zv, aes(x = lon, y = lat - 0.19, label = nombre),
+            size = 2.7, fontface = "bold", color = "#0F172A") +
+  scale_color_manual(values = paleta_biomas, name = "Zona de Vida") +
+  coord_quickmap(xlim = c(-77.5, -70.8), ylim = c(7.6, 13.2)) +
+  labs(
+    title = "Forzantes Océano-Atmosféricos y Relieve del Caribe",
+    subtitle = "Alisios del NE, surgencias costeras y curvas de nivel de las barreras orográficas",
+    x = "Longitud (°W)", y = "Latitud (°N)"
+  ) +
+  theme_minimal(base_size = 10.5) +
+  theme(
+    panel.background = element_rect(fill = "#E0F2FE", color = "#94A3B8"),
+    panel.grid.major = element_line(color = "#BAE6FD", linewidth = 0.3),
+    legend.position = "bottom",
+    legend.box = "vertical",
+    legend.margin = margin(t = 0, b = 0),
+    legend.text = element_text(size = 7.5),
+    legend.title = element_text(size = 8, face = "bold"),
+    plot.title = element_text(face = "bold", color = "#0F172A")
+  ) +
+  guides(
+    fill = guide_legend(nrow = 1, order = 1),
+    color = guide_legend(nrow = 2, order = 2)
+  )
+```
+:::
+
+::: {.column width="40%"}
+### Síntesis Oceanográfica y Orográfica
+
+* **Surgencia Costera (Upwelling):** Entre diciembre y abril, los vientos Alisios paralelos a la costa desplazan aguas superficiales cálidas mar adentro (transporte de Ekman), aflorando aguas subsuperficiales frías ($<22\,^\circ\text{C}$) y ricas en nutrientes frente a **La Guajira y Tayrona**.
+* **Inhibición Convectiva:** El enfriamiento marino estabiliza la atmósfera baja e impide la formación de nubes de lluvia en el litoral norte.
+* **Sombra Orográfica:** La **SNSM** y la **Serranía del Perijá** interceptan la humedad en barlovento, generando aridez en sotavento (Valle del Cesar y Baja Guajira).
+:::
+::::
+
+---
+
+## 2. Marco Conceptual: El Sistema de Holdridge (1947, 1967)
+
+:::: {.columns}
+
+::: {.column width="46%"}
+Modelo tridimensional basado en progresiones logarítmicas de tres ejes:
+
+1. **Biotemperatura media anual (0 – 30 °C):** Define pisos altitudinales (*Basal, Premontano, Montano Bajo, Montano, Subalpino*).
+2. **Precipitación total anual (mm):** Transiciones fisionómicas estructurales.
+3. **Relación de Evapotranspiración Potencial (EPT):** Cociente $\text{EPT} / \text{Precipitación}$ que delimita provincias de humedad.
+
+::: {.callout-tip}
+Ajustado para Colombia por **Espinal & Montenegro (1963)** e institucionalizado por el **IGAC (1977)**.
+:::
+:::
+
+::: {.column width="54%"}
+```{r fig-holdridge-caribe}
+#| fig-width: 7
+#| fig-height: 5
+
+# Diagrama de envolventes bioclimáticas (Biotemperatura vs Precipitación en escala log2)
+zonas_env <- tibble(
+  Zona = c("md-T", "me-T", "bms-T", "bs-T", "bh-T", "bmh-T",
+           "bs-PM", "bh-PM", "bmh-PM", "bh-MB", "bmh-MB", "Páramo (bh-M / bmh-SA)", "Nival"),
+  P_min = c(125, 250, 500, 1000, 2000, 4000,
+            500, 1000, 2000, 1000, 2000, 500, 250),
+  P_max = c(250, 500, 1000, 2000, 4000, 8000,
+            1000, 2000, 4000, 2000, 4000, 2000, 1000),
+  T_min = c(24, 24, 24, 24, 24, 24,
+            18, 18, 18, 12, 12, 3, 0),
+  T_max = c(30, 30, 30, 30, 30, 30,
+            24, 24, 24, 18, 18, 12, 3),
+  Grupo = c("md-T", "me-T", "bms-T", "bs-T", "bh-T", "bh-T",
+            "bs-T", "bh-T", "bh-T", "Montano/Páramo", "Montano/Páramo", "Montano/Páramo", "Nival")
+) %>%
+  mutate(
+    P_mid = sqrt(P_min * P_max),
+    T_mid = (T_min + T_max) / 2
+  )
+
+ggplot(zonas_env) +
+  geom_rect(aes(xmin = P_min, xmax = P_max, ymin = T_min, ymax = T_max, fill = Grupo),
+            color = "white", linewidth = 0.8, alpha = 0.85) +
+  geom_text(aes(x = P_mid, y = T_mid, label = Zona),
+            color = "white", fontface = "bold", size = 3.2) +
+  scale_x_continuous(
+    trans = "log2",
+    breaks = c(125, 250, 500, 1000, 2000, 4000, 8000),
+    labels = c("125", "250", "500", "1.000", "2.000", "4.000", "8.000")
+  ) +
+  scale_y_continuous(breaks = c(0, 3, 6, 12, 18, 24, 30)) +
+  scale_fill_manual(values = paleta_caribe) +
+  labs(
+    title = "Espacio Bioclimático de Holdridge en el Caribe",
+    subtitle = "Envolventes de biotemperatura (°C) y precipitación anual (escala logarítmica)",
+    x = "Precipitación media anual (mm)",
+    y = "Biotemperatura media anual (°C)",
+    caption = "Adaptado del sistema Holdridge (1967) y Espinal & Montenegro (1963) para el Caribe."
+  ) +
+  theme_clase() +
+  theme(legend.position = "none")
+```
+:::
+
+::::
+
+---
+
+## Transición Metodológica: De Holdridge al MEC
+
+El **Mapa de Ecosistemas Continentales, Costeros y Marinos (MEC)** (IDEAM, IGAC, IAvH, Invemar, Sinchi, IIAP) supera las limitaciones del enfoque puramente climático:
+
+| Criterio | Zonas de Vida (Holdridge / IGAC) | Enfoque Ecosistémico (MEC) |
+|:---|:---|:---|
+| **Variables base** | Biotemperatura, precipitación y relación EPT. | Clima + geopedología + geomorfología + coberturas reales. |
+| **Naturaleza** | **Potencial** (envolvente bioclimática teórica). | **Real y estructural** (incluye estado de transformación). |
+| **Unidades clave** | Formaciones vegetales zonales (`bs-T`, `bh-PM`, etc.). | **Zonobiomas** (clima), **Orobiomas** (relieve) y **Pedobiomas** (suelo/agua). |
+| **Uso en clase** | Diagnosticar la *vocación ecológica* de una cuenca. | Evaluar *fragmentación, inundación y gestión territorial*. |
+
+---
+
+## 3. Tierras Bajas: Gradiente Basal (0 – 1.000 m; >24 °C)
+
+A biotemperatura constante (>24 °C), el **balance hídrico** dicta la estructura de la vegetación:
+
+| Zona de Vida | Sigla | Precipitación Anual | Distribución Caribeña | Equivalencia MEC |
+|:---|:---:|:---:|:---|:---|
+| **Matorral desértico tropical** | `md-T` | 125 – 250 mm | Alta y Media Guajira (150–200 mm) | Zonobioma del desierto tropical |
+| **Monte espinoso tropical** | `me-T` | 250 – 500 mm | Media/Baja Guajira; piedemonte N SNSM | Xerofitia árida |
+| **Bosque muy seco tropical** | `bms-T` | 500 – 1.000 mm | Mayor parte de La Guajira, N Magdalena/Cesar | Subxerofitia / Zonobioma seco |
+| **Bosque seco tropical** | `bs-T` | 1.000 – 2.000 mm | Llanura Caribe, Montes de María, Tayrona, Perijá | Zonobioma seco alternohígrico |
+| **Bosque húmedo tropical** | `bh-T` | > 2.000 mm | Urabá, sabanas húmedas y base húmeda SNSM/Perijá | Gran bioma bosque húmedo tropical |
+
+::: {.callout-warning appearance="simple"}
+**Auditoría técnica en clase:** Algunos diagnósticos regionales (ej. Corpoguajira en San Juan del Cesar) rotulan áreas con `<1.000 mm` como *Bosque muy seco tropical* pero usan la sigla `(Bs-T)`. En rigor paramétrico de Espinal & Montenegro, corresponde a `bms-T`.
+:::
+
+---
+
+## El Bosque Seco Tropical (`bs-T`): Ecofisiología y Biodiversidad
+
+:::: {.columns}
+
+::: {.column width="52%"}
+### El Filtro de la Estacionalidad
+* Soporta **4 a 6 meses secos** al año con precipitaciones `< 100 mm/mes`.
+* **Caducifolia sincrónica:** Pérdida foliar en estiaje seguida de floración masiva al inicio de lluvias.
+* **Especies diagnósticas:** *Bursera simarouba* (indio desnudo), *Cavanillesia platanifolia* (macondo), *Astronium graveolens*, *Tabebuia rosea*, *Samanea saman*.
+* **Biodiversidad (IAvH):** ~2.600 plantas (83 endémicas), ~230 aves (33 endémicas) y ~60 mamíferos.
+:::
+
+::: {.column width="48%"}
+![Mosaico litoral y bosque seco tropical en el PNN Tayrona, Magdalena (`bs-T`). Foto: MinAmbiente Colombia (CC BY-SA 4.0, Wikimedia Commons)](https://commons.wikimedia.org/wiki/Special:FilePath/Parque_Tayrona._Colombia.jpg){width="100%" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"}
+:::
+
+::::
+
+---
+
+## Ecosistemas Azonales: Donde el Agua Supera al Clima
+
+:::: {.columns}
+
+::: {.column width="54%"}
+Cuando la hidrología y la salinidad dominan sobre el macroclima, emergen los **Pedobiomas**:
+
+1. **Halobioma del Caribe (Manglares y lagunas costeras):**
+   * **Ciénaga Grande de Santa Marta:** Mayor laguna costera del país, articulada con los ríos de la SNSM y el río Magdalena.
+   * Otros nodos: PNN Tayrona, Vía Parque Isla de Salamanca, Bahía Portete y SFF Los Flamencos.
+2. **Helobiomas Continentales:**
+   * **Depresión Momposina**, complejo cenagoso de **Zapatosa**, Canal del Dique y ciénagas de Lorica y El Porro (180 especies de aves registradas).
+:::
+
+::: {.column width="46%"}
+![Vista orbital de la Ciénaga Grande de Santa Marta y la barra litoral de Salamanca (Halobioma). Foto: NASA (Dominio Público, Wikimedia Commons)](https://commons.wikimedia.org/wiki/Special:FilePath/Cienaga_Grande_de_Santa_Marta.jpg){width="100%" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"}
+:::
+
+::::
+
+---
+
+## 4. Gradientes Montañosos: SNSM frente a Perijá
+
+Comparación entre **biogeografía insular litoral** y **conectividad cordillerana andina**:
+
+| Atributo | Sierra Nevada de Santa Marta (SNSM) | Serranía del Perijá |
+|:---|:---|:---|
+| **Geomorfología** | Macizo litoral aislado más alto del mundo (**0 – 5.775 m**). | Ramal septentrional de la Cordillera Oriental (**hasta ~3.400 m**). |
+| **Pisos de Holdridge** | Desde `me-T` y `bs-T` hasta `bh-PM`, `bp-PM`, selva andina, páramo (>3.400 m) y sistema nival. | Piedemonte con `bs-T`, bosques de niebla (`bs-MB` / `bh-MB`) y **páramo seco** (Páramo El Avión, 3.100–3.400 m). |
+| **Flora y endemismo** | ~1.800 especies; géneros endémicos *Cabrierella*, *Castañedia*, *Rauliopsis*. | 1.970 táxones; **46 % de sus endemismos** concentrados en el páramo (*Espeletia perijaensis*). |
+| **Fauna destacada** | 631 aves (14 endémicas); 50 anfibios (**34 % endémicos**, *Geobatrachus walkeri*). | Puente biogeográfico andino-caribeño; alta afinidad avifaunística con SNSM. |
+| **Gobernanza** | Reserva de la Biosfera UNESCO (2,37 millones ha; **24 resguardos** Arhuaco, Kogui y Wiwa). | Corredor transfronterizo Colombia–Venezuela bajo alta presión agropecuaria. |
+
+---
+
+## Contrastes Visuales de la Alta Montaña Caribeña
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![Sierra Nevada de Santa Marta vista desde Valledupar (gradiente basal a nival). Foto: F3rn4nd0 (CC BY-SA 3.0, Wikimedia Commons)](https://commons.wikimedia.org/wiki/Special:FilePath/Sierra_Nevada_de_Santa_Marta_-_Valledupar.jpg){width="100%" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"}
+:::
+
+::: {.column width="50%"}
+![Sector Cerro Pintao en la Serranía del Perijá (corredor andino-caribeño). Foto: F3rn4nd0 (CC BY-SA 3.0, Wikimedia Commons)](https://commons.wikimedia.org/wiki/Special:FilePath/Serrania_del_Perija_-_Cerro_Pintao.jpg){width="100%" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"}
+:::
+
+::::
+
+---
+
+## Patrones Macroecológicos de Alta Montaña
+
+:::: {.columns}
+
+::: {.column width="46%"}
+::: {.callout-important}
+### Dos Reglas Biogeográficas
+1. **Inversión Riqueza – Endemismo en la SNSM:** A mayor altitud disminuye la riqueza total de plantas vasculares, pero **aumenta la proporción de especies endémicas** por aislamiento topográfico.
+2. **Conectividad Histórica SNSM – Perijá:** Al menos **15 táxones** antes considerados endémicos estrictos de un macizo han sido hallados en ambos (puentes pleistocénicos).
+:::
+:::
+
+::: {.column width="54%"}
+```{r fig-snsm-gradiente}
+#| fig-width: 7
+#| fig-height: 4.8
+
+# Datos de riqueza de plantas vasculares por franja altitudinal en la SNSM (Rangel-Ch.)
+snsm_df <- tibble(
+  Franja = factor(
+    c("Selva Subandina\n(1.100 - 2.300 m)", 
+      "Selva Andina\n(2.300 - 3.400 m)", 
+      "Páramo\n(> 3.400 m)"),
+    levels = c("Selva Subandina\n(1.100 - 2.300 m)", 
+               "Selva Andina\n(2.300 - 3.400 m)", 
+               "Páramo\n(> 3.400 m)")
+  ),
+  Especies_Vasculares = c(651, 479, 109),
+  Endemismo_Relativo = c(18, 32, 58) # Índice ilustrativo de concentración relativa de endemismos (%)
+)
+
+ggplot(snsm_df, aes(x = Franja)) +
+  geom_col(aes(y = Especies_Vasculares, fill = Franja), width = 0.55, alpha = 0.9) +
+  geom_text(aes(y = Especies_Vasculares + 32, label = paste0(Especies_Vasculares, " spp.")),
+            fontface = "bold", size = 4, color = "#1E293B") +
+  geom_line(aes(y = Endemismo_Relativo * 10, group = 1), color = "#DC2626", linewidth = 1.3) +
+  geom_point(aes(y = Endemismo_Relativo * 10), color = "#DC2626", size = 3.5) +
+  geom_label(aes(y = Endemismo_Relativo * 10 + 45, 
+                 label = paste0("Endemismo rel.: ~", Endemismo_Relativo, "%")),
+             color = "#DC2626", size = 3.1, fontface = "bold") +
+  scale_y_continuous(
+    name = "Riqueza de plantas vasculares (N° especies)",
+    limits = c(0, 760),
+    sec.axis = sec_axis(~ . / 10, name = "Concentración relativa de endemismos (%)")
+  ) +
+  scale_fill_manual(values = c("#15803D", "#0284C7", "#475569")) +
+  labs(
+    title = "Inversión Riqueza vs. Endemismo en la SNSM",
+    subtitle = "Caída de riqueza florística total con la altitud frente al incremento del aislamiento insular",
+    x = NULL,
+    caption = "Fuente: Datos florísticos por franja de vida en la SNSM (Rangel-Ch. / Colombia Diversidad Biótica)."
+  ) +
+  theme_clase() +
+  theme(
+    legend.position = "none",
+    axis.title.y.right = element_text(color = "#DC2626")
+  )
+```
+:::
+
+::::
+
+---
+
+## 5. Conservación y Restauración en el Caribe
+
+:::: {.columns}
+
+::: {.column width="46%"}
+### Diagnóstico del `bs-T` (PNCBST 2020–2030)
+* Solo sobrevive el **8 %** de la cobertura original en Colombia; los remanentes están altamente fragmentados.
+* **Brecha del SINAP:** Apenas **6,17 – 6,4 %** está en áreas protegidas; las **CAR regionales** sostienen el **56 %** de esa representación.
+* **Modelos exitosos:** Estrategia de las **4 «P»** en Montes de María y rehabilitación de **4.300 ha** (corredor *Wüin'manna*) en La Guajira.
+:::
+
+::: {.column width="54%"}
+```{r fig-estado-bst}
+#| fig-width: 7
+#| fig-height: 4.8
+
+# Composición sucesional de los remanentes de bs-T en Colombia (IAvH / PNCBST)
+bst_estado <- tibble(
+  Categoria = factor(
+    c("Bosques secundarios\n(en sucesión)", 
+      "Rastrojos y arbustales\n(sucesión temprana)", 
+      "Bosques maduros\n(estructura conservada)", 
+      "Otros / coberturas\nasociadas"),
+    levels = c("Otros / coberturas\nasociadas",
+               "Bosques maduros\n(estructura conservada)",
+               "Rastrojos y arbustales\n(sucesión temprana)",
+               "Bosques secundarios\n(en sucesión)")
+  ),
+  Porcentaje = c(33.4, 32.5, 22.3, 11.8)
+)
+
+ggplot(bst_estado, aes(x = Porcentaje, y = Categoria, fill = Categoria)) +
+  geom_col(width = 0.6) +
+  geom_text(aes(label = paste0(Porcentaje, " %")), hjust = -0.15, fontface = "bold", size = 4) +
+  scale_x_continuous(limits = c(0, 42), labels = function(x) paste0(x, "%")) +
+  scale_fill_manual(values = c("#94A3B8", "#15803D", "#D97706", "#65A30D")) +
+  labs(
+    title = "Estado Sucesional del 8 % Remanente de bs-T",
+    subtitle = "Predominio de bosques secundarios y rastrojos sobre bosques maduros en Colombia",
+    x = "Proporción del área remanente (%)",
+    y = NULL,
+    caption = "Fuente: Monitoreo IAvH y Plan Nacional de Conservación del Bosque Seco Tropical (PNCBST)."
+  ) +
+  theme_clase() +
+  theme(legend.position = "none")
+```
+:::
+
+::::
+
+---
+
+## Cambio Climático y Desplazamiento de Zonas de Vida (2100)
+
+Al depender de biotemperatura y precipitación, el esquema de Holdridge anticipa una reorganización espacial severa en el Caribe:
+
+* **Aridización de tierras bajas:** Proyecciones nacionales (3.ª y 4.ª Comunicación Nacional / CMIP6) estiman reducciones de precipitación del **20 % al 40 %** hacia 2100 en el Caribe.
+  * *Efecto Holdridge:* Desplazamiento de `bs-T` hacia condiciones de `bms-T` y `me-T`.
+* **Compresión altitudinal ("escalera hacia la extinción"):** Ascenso de las franjas premontanas y montanas (`bh-MB` con alta vulnerabilidad), reducción del área de páramo en SNSM y Perijá, y retracción acelerada de los glaciares de la SNSM.
+* **Presión marino-costera:** Ascenso del nivel del mar (~**2,4 mm/año** reportados por IDEAM), incrementando salinización e inundación sobre manglares y ciénagas litorales.
+
+---
+
+## Síntesis y Preguntas de Cierre para el Seminario {.center background-color="#081c15"}
+
+1. **Integración metodológica:** Usar Holdridge para leer la *matriz climática potencial* y el MEC para gestionar *biomas reales y azonales* (manglares, ciénagas, bosques transformados).
+2. **Prioridad territorial:** El Caribe resguarda la última oportunidad a escala de paisaje para salvar el bosque seco tropical colombiano.
+3. **Restauración climáticamente inteligente:** ¿Qué especies nativas del `bms-T` y `bs-T` debemos incorporar hoy en los viveros de restauración del Caribe para garantizar que los bosques plantados sobrevivan al clima de 2070–2100?
