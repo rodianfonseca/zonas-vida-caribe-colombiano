@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Estilos personalizados para presentación Quarto + Reveal.js
+   Optimizado para densidad académica (texto + gráficas + fotografías)
+   ========================================================================== */
+
+:root {
+  --r-main-font-size: 21px; /* Fuente base compacta para evitar desbordamientos */
+  --r-heading1-size: 1.85em;
+  --r-heading2-size: 1.32em;
+  --r-heading3-size: 1.05em;
+  --r-main-color: #1e293b;
+  --r-heading-color: #0f172a;
+  --r-link-color: #0284c7;
+}
+
+/* Ajuste general de diapositivas y márgenes */
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Títulos compactos y con borde inferior sutil en H2 */
+.reveal h1.title {
+  font-size: 2.1em;
+  line-height: 1.15;
+  color: #0f172a;
+  margin-bottom: 0.3em;
+}
+
+.reveal p.subtitle {
+  font-size: 1.1em;
+  color: #475569;
+  margin-bottom: 1em;
+}
+
+.reveal h2 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #0f172a;
+  border-bottom: 2px solid #cbd5e1;
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+}
+
+.reveal h3 {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: #0369a1;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+/* Párrafos y listas densas */
+.reveal p,
+.reveal ul,
+.reveal ol {
+  font-size: 1.1em;
+  line-height: 1.32;
+  margin-bottom: 0.45em;
+}
+
+.reveal li {
+  margin-bottom: 0.28em;
+}
+
+.reveal ul ul,
+.reveal ol ul {
+  font-size: 0.94em;
+  margin-top: 0.2em;
+}
+
+/* Columnas con separación equilibrada */
+.reveal .columns {
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+/* Imágenes, figuras y leyendas compactas */
+.reveal figure {
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.reveal img {
+  max-width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+  margin: 0 auto;
+}
+
+.reveal figcaption,
+.reveal .figure-caption {
+  font-size: 0.72em;
+  color: #64748b;
+  font-style: italic;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+/* Tablas comparativas compactas */
+.reveal table {
+  font-size: 0.76em;
+  line-height: 1.25;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.reveal table th {
+  background-color: #0f172a;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 7px 10px;
+}
+
+.reveal table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.reveal table tr:nth-child(even) td {
+  background-color: #f8fafc;
+}
+
+/* Contenedores de widgets interactivos (Leaflet) */
+.reveal .html-widget {
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* Número de diapositiva discreto */
+.reveal .slide-number {
+  font-size: 14px;
+  color: #64748b;
+}

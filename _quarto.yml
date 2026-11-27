@@ -1,0 +1,11 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Zonas de Vida Ecológicas del Caribe Colombiano"
+  site-url: "https://rodianfonseca.github.io/zonas-vida-caribe-colombiano"
+  
+format:
+  html:
+    theme: default
