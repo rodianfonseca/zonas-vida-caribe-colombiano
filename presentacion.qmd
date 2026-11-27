@@ -368,7 +368,6 @@ ggplot(clima_df, aes(x = Mes, y = Precipitacion, color = Zona, group = Zona)) +
 
 - **Dosel multiestratificado cerrado (**$30\text{--}45\text{ m}$): Alta complejidad vertical con 4 a 5 estratos definidos (emergentes, dosel superior, subdosel, arbustivo y herbáceo).
 - **Hiperdiversidad epífita y trepadora:** Abundancia de Araceae, Orchidaceae, Bromeliaceae, helechos y hemiepífitas estranguladoras (*Ficus*, *Clusia*) gracias a la humedad relativa constante ($>80\%$).
-- **Localización clave:** Urabá chocoano-antioqueño, estribaciones húmedas del Paramillo, Serranía de San Lucas y vertiente norte húmeda de la SNSM (sector Buritaca–Don Diego).
 
 ### Adaptaciones Ecofisiológicas
 
@@ -385,7 +384,6 @@ ggplot(clima_df, aes(x = Mes, y = Precipitacion, color = Zona, group = Zona)) +
 - **Frugívoros de dosel de gran porte:** Tucanes (*Ramphastos sulfuratus*), guacamayas (*Ara ambiguus*, *Ara militaris*) y monos araña (*Ateles hybridus* / *Ateles fusciceps*).
 - **Depredadores tope de amplio ámbito hogareño:** *Panthera onca* (jaguar), *Puma concolor* y *Harpia harpyja* (águila harpía).
 - **Herpetofauna de microhábitats húmedos:** Ranas arborícolas (*Agalychnis callidryas*) y dendrobátidos asociados a fitotelmatas de bromelias.
-- **Ictiofauna de bosques inundables:** Dinámica de pulso de inundación en los bajos ríos Atrato, Sinú y San Jorge (*Prochilodus magdalenae*).
 :::
 :::::
 
